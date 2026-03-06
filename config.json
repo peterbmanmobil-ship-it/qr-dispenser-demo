@@ -1,0 +1,34 @@
+{
+  "products": {
+    "demo": {
+      "name": "Demo Dispenser",
+      "markets": {
+        "US": {
+          "label": "United States",
+          "url": "https://example.com/us/product/demo"
+        },
+        "DE": {
+          "label": "Deutschland",
+          "url": "https://example.com/de/produkt/demo"
+        },
+        "SE": {
+          "label": "Sverige",
+          "url": "https://example.com/se/produkt/demo"
+        }
+      },
+      "defaultMarket": "US"
+    }
+  },
+  "ui": {
+    "supportedMarkets": [
+      "US",
+      "DE",
+      "SE"
+    ],
+    "defaultMarket": "US",
+    "title": "Välj land / Choose country",
+    "subtitle": "Skanna QR-koden → välj land → öppna lokal produktsida",
+    "faqLink": "faq.html",
+    "feedbackLink": "feedback.html"
+  }
+}

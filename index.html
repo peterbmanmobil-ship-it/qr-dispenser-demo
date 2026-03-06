@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="sv">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>QR Dispenser – Landval</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="container">
+    <header class="header">
+      <div class="badge">MVP</div>
+      <h1 id="title">Välj land / Choose country</h1>
+      <p id="subtitle" class="muted"></p>
+    </header>
+
+    <section class="card">
+      <div class="row">
+        <div>
+          <h2 class="h2">Land</h2>
+          <p class="muted">Du kan även byta senare.</p>
+        </div>
+        <div class="pill" id="productPill">Produkt: demo</div>
+      </div>
+
+      <div id="marketButtons" class="grid"></div>
+
+      <div class="divider"></div>
+
+      <div class="actions">
+        <a id="faqLink" class="link" href="faq.html">FAQ</a>
+        <a id="feedbackLink" class="link" href="feedback.html">Förslag / reklamation</a>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <p class="muted">Tips: QR-koden kan innehålla en produktkod, t.ex. <code>?p=demo</code>.</p>
+    </footer>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
