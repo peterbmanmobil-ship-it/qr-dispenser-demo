@@ -1,4 +1,4 @@
-// Minimal, vanilla JS – lätt att bygga vidare på.
+// Minimal, vanilla JS – easy to expand.
 
 function getQueryParam(name) {
   const url = new URL(window.location.href);
@@ -7,76 +7,115 @@ function getQueryParam(name) {
 
 async function loadConfig() {
   const res = await fetch('config.json', { cache: 'no-store' });
-  if (!res.ok) throw new Error('Kunde inte läsa config.json');
+  if (!res.ok) throw new Error('Could not load config.json');
   return await res.json();
 }
 
-function preferredMarket(supported) {
-  // Försök gissa land via browser-språk. Ex: 'sv-SE' → 'SE'
+function preferredMarket(availableCodes) {
   const lang = (navigator.language || 'en-US').toUpperCase();
   const parts = lang.split('-');
   const country = parts.length > 1 ? parts[1] : null;
-  if (country && supported.includes(country)) return country;
+  if (country && availableCodes.includes(country)) return country;
   return null;
 }
 
-function renderButtons(product, productId, supportedMarkets) {
-  const el = document.getElementById('marketButtons');
-  el.innerHTML = '';
+function normalizeMarket(code) {
+  if (code === 'UK') return 'GB';
+  return code;
+}
 
-  supportedMarkets.forEach(code => {
-    const m = product.markets[code];
-    if (!m) return;
+function renderSelect(product, productId, supportedMarkets) {
+  const select = document.getElementById('marketSelect');
+  const goBtn = document.getElementById('goBtn');
 
-    const a = document.createElement('a');
-    a.className = 'btn';
-    a.href = m.url;
-    a.setAttribute('data-market', code);
-    a.innerHTML = `<div class="btnTitle">${m.label}</div><div class="btnMeta">${code}</div>`;
+  const items = supportedMarkets
+    .map(c => normalizeMarket(c))
+    .filter(code => product.markets[code])
+    .map(code => ({ code, label: product.markets[code].label, url: product.markets[code].url }));
 
-    // Spara val i localStorage så nästa scan går snabbare
-    a.addEventListener('click', () => {
-      localStorage.setItem('qr_demo_market', code);
-      localStorage.setItem('qr_demo_product', productId);
-    });
+  items.sort((a, b) => a.label.localeCompare(b.label, undefined, { sensitivity: 'base' }));
 
-    el.appendChild(a);
+  select.innerHTML = '';
+
+  // Placeholder
+  const placeholder = document.createElement('option');
+  placeholder.value = '';
+  placeholder.textContent = 'Choose country';
+  placeholder.disabled = true;
+  placeholder.selected = true;
+  select.appendChild(placeholder);
+
+  items.forEach(m => {
+    const opt = document.createElement('option');
+    opt.value = m.code;
+    opt.textContent = m.label;
+    select.appendChild(opt);
+  });
+
+  function setGoEnabled(enabled) {
+    if (enabled) {
+      goBtn.classList.remove('disabled');
+      goBtn.setAttribute('aria-disabled', 'false');
+      goBtn.style.pointerEvents = 'auto';
+    } else {
+      goBtn.classList.add('disabled');
+      goBtn.setAttribute('aria-disabled', 'true');
+      goBtn.href = '#';
+      goBtn.style.pointerEvents = 'none';
+    }
+  }
+
+  // OPTIONAL: auto-preselect based on saved/guess/default.
+  // Uncomment if you want faster repeat scans.
+  /*
+  const saved = localStorage.getItem('qr_demo_market');
+  const guess = preferredMarket(items.map(x => x.code));
+  const defaultMarket = normalizeMarket(product.defaultMarket || 'US');
+
+  let chosen = null;
+  if (saved && product.markets[saved]) chosen = saved;
+  else if (guess && product.markets[guess]) chosen = guess;
+  else if (product.markets[defaultMarket]) chosen = defaultMarket;
+
+  if (chosen) {
+    select.value = chosen;
+  }
+  */
+
+  setGoEnabled(select.value !== '');
+
+  function syncGoLink() {
+    const code = select.value;
+    const url = product.markets[code]?.url;
+    if (url) {
+      goBtn.href = url;
+      setGoEnabled(true);
+    } else {
+      setGoEnabled(false);
+    }
+  }
+
+  select.addEventListener('change', syncGoLink);
+  syncGoLink();
+
+  goBtn.addEventListener('click', () => {
+    if (!select.value) return;
+    localStorage.setItem('qr_demo_market', select.value);
+    localStorage.setItem('qr_demo_product', productId);
   });
 }
 
 (async function init() {
   const cfg = await loadConfig();
 
-  const productId = getQueryParam('p') || 'demo';
-  const product = cfg.products[productId] || cfg.products['demo'];
+  const productId = getQueryParam('p') || '564500';
+  const product = cfg.products[productId] || cfg.products['564500'];
 
-  document.getElementById('title').textContent = cfg.ui.title;
-  document.getElementById('subtitle').textContent = cfg.ui.subtitle;
-  document.getElementById('productPill').textContent = `Produkt: ${productId}`;
+  document.getElementById('title').textContent = cfg.ui.title || 'Choose country';
+  document.getElementById('productPill').textContent = `Product: ${productId}`;
 
-  // Länkar
   document.getElementById('faqLink').href = cfg.ui.faqLink + `?p=${encodeURIComponent(productId)}`;
   document.getElementById('feedbackLink').href = cfg.ui.feedbackLink + `?p=${encodeURIComponent(productId)}`;
 
-  const supported = cfg.ui.supportedMarkets;
-
-  // Om användaren redan valt land tidigare → auto-redirect efter 0.8s
-  const saved = localStorage.getItem('qr_demo_market');
-  if (saved && supported.includes(saved) && product.markets[saved]) {
-    // Visa knappar ändå, men gör en mjuk redirect
-    renderButtons(product, productId, supported);
-    setTimeout(() => {
-      window.location.href = product.markets[saved].url;
-    }, 800);
-    return;
-  }
-
-  renderButtons(product, productId, supported);
-
-  // Markera föreslaget land (om vi kan gissa)
-  const guess = preferredMarket(supported);
-  if (guess) {
-    const btn = document.querySelector(`[data-market="${guess}"]`);
-    if (btn) btn.classList.add('recommended');
-  }
+  renderSelect(product, productId, cfg.ui.supportedMarkets || []);
 })();

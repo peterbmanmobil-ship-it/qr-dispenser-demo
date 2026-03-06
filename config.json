@@ -3,13 +3,33 @@
     "564500": {
       "name": "Tork Dispenser 564500",
       "markets": {
-        "SE": {
-          "label": "Sverige",
-          "url": "https://www.torkglobal.com/se/sv/product/tval-och-handdesinfektion/dispensrar/tval-och-handsprit-dispensrar/564500"
-        },
         "DE": {
           "label": "Deutschland",
           "url": "https://www.torkglobal.com/de/de/product/seife-und-desinfektionsmittel/spender/seifen-und-desinfektionsmittel-spender/564500"
+        },
+        "ES": {
+          "label": "España",
+          "url": "https://www.torkglobal.com/es/es/product/jabones-y-desinfectantes/dispensadores/dispensadores-de-jabones-y-desinfectantes/564500"
+        },
+        "FR": {
+          "label": "France",
+          "url": "https://www.torkglobal.com/fr/fr/product/savons-et-desinfectants/distributeurs/distributeurs-de-savons-et-desinfectants/564500"
+        },
+        "GB": {
+          "label": "United Kingdom",
+          "url": "https://www.torkglobal.com/gb/en/product/soaps-sanitisers/dispensers/soaps-and-sanitisers-dispensers/564500"
+        },
+        "IT": {
+          "label": "Italia",
+          "url": "https://www.torkglobal.com/it/it/product/saponi-e-disinfettanti/dispenser/dispenser-saponi-e-disinfettanti/564500"
+        },
+        "NO": {
+          "label": "Norge",
+          "url": "https://www.torkglobal.com/no/no/product/sape-og-handdesinfeksjon/dispensere/dispensere-for-sape-og-handdesinfeksjon/564500"
+        },
+        "SE": {
+          "label": "Sverige",
+          "url": "https://www.torkglobal.com/se/sv/product/tval-och-handdesinfektion/dispensrar/tval-och-handsprit-dispensrar/564500"
         }
       },
       "defaultMarket": "SE"
@@ -26,10 +46,19 @@
     }
   },
   "ui": {
-    "supportedMarkets": ["US", "DE", "SE"],
+    "supportedMarkets": [
+      "DE",
+      "ES",
+      "FR",
+      "GB",
+      "IT",
+      "NO",
+      "SE",
+      "US"
+    ],
     "defaultMarket": "US",
-    "title": "Välj land / Choose country",
-    "subtitle": "Skanna QR-koden → välj land → öppna lokal produktsida",
+    "title": "Choose country",
+    "subtitle": "",
     "faqLink": "faq.html",
     "feedbackLink": "feedback.html"
   }

@@ -1,4 +1,3 @@
-/* Tork-inspirerat, ljust tema (enkel MVP) */
 :root{
   --tork-blue: #153054;
   --tork-blue-2: #0f2643;
@@ -11,7 +10,7 @@
   --focus: rgba(21, 48, 84, 0.18);
 }
 
-* { box-sizing: border-box; }
+*{ box-sizing: border-box; }
 
 body{
   margin: 0;
@@ -26,27 +25,27 @@ body{
   padding: 18px;
 }
 
-/* Header med centrerad logga */
 .header{
-  margin: 10px 0 12px;
+  margin: 8px 0 10px;
   text-align: center;
 }
 
 .brandLogo{
-  display: block;
-  margin: 10px auto 10px;
-  width: min(220px, 70vw);
+  display:block;
+  margin: 6px auto 8px;
+  width: 160px;
+  max-width: 60vw;
   height: auto;
 }
 
 h1{
-  margin: 8px 0 6px;
-  font-size: 28px;
+  margin: 4px 0 6px;
+  font-size: 26px;
   font-weight: 700;
   color: var(--tork-blue);
 }
 
-.muted { color: var(--muted); }
+.muted{ color: var(--muted); }
 
 .card{
   background: var(--surface);
@@ -79,75 +78,54 @@ h1{
   color: var(--tork-blue);
 }
 
-.grid{
-  margin-top: 14px;
-  display:grid;
-  grid-template-columns: 1fr;
-  gap: 10px;
+.field{ margin-top: 14px; }
+.label{
+  display:block;
+  font-weight: 700;
+  color: var(--tork-blue-2);
+  margin: 0 0 8px;
 }
-
-.btn{
-  text-decoration:none;
-  color: var(--text);
+.select{
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 12px;
   border: 1px solid var(--border);
   background: #fff;
-  border-radius: 14px;
-  padding: 14px;
-  display:flex;
-  justify-content: space-between;
-  align-items:center;
-  transition: transform .08s ease, box-shadow .08s ease, border-color .08s ease;
+  font-size: 16px;
+  outline: none;
 }
-
-.btn:hover{
-  transform: translateY(-1px);
-  border-color: rgba(21,48,84,0.25);
-  box-shadow: 0 8px 18px rgba(17,24,39,0.08);
-}
-
-.btn.recommended{
+.select:focus{
   border-color: rgba(21,48,84,0.55);
   box-shadow: 0 0 0 3px var(--focus);
 }
 
-.btnTitle{
-  font-weight: 700;
-  color: var(--tork-blue-2);
-}
-
-.btnMeta{
-  color: var(--muted);
-  font-size: 12px;
-}
-
-.divider{
-  height: 1px;
-  background: var(--border);
-  margin: 16px 0;
-}
-
-.actions{
-  display:flex;
-  gap: 16px;
-  flex-wrap: wrap;
-}
-
-.link{
-  color: var(--tork-blue);
-  font-weight: 600;
-}
-
-.footer{
+.ctaRow{
   margin-top: 12px;
-  text-align:center;
+  display:flex;
+  justify-content: flex-end;
 }
 
-code{
-  background: var(--surface-2);
-  padding: 2px 6px;
-  border-radius: 8px;
+.primaryBtn{
+  display:inline-block;
+  text-decoration:none;
+  padding: 12px 16px;
+  border-radius: 12px;
+  background: var(--tork-blue);
+  color: #fff;
+  font-weight: 700;
+  border: 1px solid rgba(0,0,0,0.05);
 }
+.primaryBtn:hover{ filter: brightness(0.95); }
+.primaryBtn.disabled{ opacity: 0.55; filter: grayscale(20%); }
+
+.divider{ height: 1px; background: var(--border); margin: 16px 0; }
+
+.actions{ display:flex; gap: 16px; flex-wrap: wrap; }
+.link{ color: var(--tork-blue); font-weight: 600; }
+
+.footer{ margin-top: 12px; text-align:center; }
+code{ background: var(--surface-2); padding: 2px 6px; border-radius: 8px; }
 
 @media (min-width: 560px){
-  .grid{ grid-template-columns: 1fr 1fr; }
+  .row{ align-items: center; }
 }
