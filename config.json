@@ -1,30 +1,32 @@
 {
   "products": {
-    "demo": {
-      "name": "Demo Dispenser",
+    "564500": {
+      "name": "Tork Dispenser 564500",
       "markets": {
-        "US": {
-          "label": "United States",
-          "url": "https://example.com/us/product/demo"
+        "SE": {
+          "label": "Sverige",
+          "url": "https://www.torkglobal.com/se/sv/product/tval-och-handdesinfektion/dispensrar/tval-och-handsprit-dispensrar/564500"
         },
         "DE": {
           "label": "Deutschland",
-          "url": "https://example.com/de/produkt/demo"
-        },
-        "SE": {
-          "label": "Sverige",
-          "url": "https://example.com/se/produkt/demo"
+          "url": "https://www.torkglobal.com/de/de/product/seife-und-desinfektionsmittel/spender/seifen-und-desinfektionsmittel-spender/564500"
+        }
+      },
+      "defaultMarket": "SE"
+    },
+    "581500": {
+      "name": "Tork Dispenser 581500",
+      "markets": {
+        "US": {
+          "label": "United States",
+          "url": "https://www.torkglobal.com/us/en/product/soaps-sanitizers/dispensers/soaps-and-sanitizers-dispensers/581500"
         }
       },
       "defaultMarket": "US"
     }
   },
   "ui": {
-    "supportedMarkets": [
-      "US",
-      "DE",
-      "SE"
-    ],
+    "supportedMarkets": ["US", "DE", "SE"],
     "defaultMarket": "US",
     "title": "Välj land / Choose country",
     "subtitle": "Skanna QR-koden → välj land → öppna lokal produktsida",
